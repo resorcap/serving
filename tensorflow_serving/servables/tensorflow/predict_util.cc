@@ -109,7 +109,16 @@ Status PreProcessPrediction(const SignatureDef& signature,
       return tensorflow::Status(tensorflow::error::INVALID_ARGUMENT,
                                 "tensor parsing error: " + alias);
     }
-    inputs->emplace_back(std::make_pair(iter->second.name(), tensor));
+    if (iter->second.name() == "serving_default_fbank:0") {
+        const int max_padded_fank_size = 1500;
+        const std::vector<int> max_dim_sizes{tensor.shape().dim_size(0), max_padded_fank_size,
+                                             tensor.shape().dim_size(2), tensor.shape().dim_size(3)};
+      Tensor padded_tensor;
+      AddPadding(tensor, max_dim_sizes, &padded_tensor);
+      inputs->emplace_back(std::make_pair(iter->second.name(), padded_tensor));
+    } else {
+      inputs->emplace_back(std::make_pair(iter->second.name(), tensor));
+    }
   }
 
   // Prepare run target.

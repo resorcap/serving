@@ -24,6 +24,7 @@ limitations under the License.
 #include "tensorflow_serving/apis/predict.pb.h"
 #include "tensorflow_serving/servables/tensorflow/predict_response_tensor_serialization_option.h"
 #include "tensorflow_serving/util/optional.h"
+#include "tensorflow_serving/batching/batching_util.h"
 
 namespace tensorflow {
 namespace serving {

@@ -448,6 +448,7 @@ cc_library(
         ":util",
         "//tensorflow_serving/apis:predict_cc_proto",
         "//tensorflow_serving/util:optional",
+        "//tensorflow_serving/batching:batching_util",
         "@com_google_absl//absl/strings",
         "@org_tensorflow//tensorflow/cc/saved_model:signature_constants",
         "@org_tensorflow//tensorflow/core:core_cpu",
